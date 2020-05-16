@@ -36,25 +36,13 @@
       >
         <v-icon>mdi-{{ `chevron-${miniVariant ? 'right' : 'left'}` }}</v-icon>
       </v-btn>
-      <v-btn
-        icon
-        @click.stop="clipped = !clipped"
-      >
-        <v-icon>mdi-application</v-icon>
-      </v-btn>
-      <v-btn
-        icon
-        @click.stop="fixed = !fixed"
-      >
-        <v-icon>mdi-minus</v-icon>
-      </v-btn>
-      <v-toolbar-title v-text="title" />
+      <v-toolbar-title v-text="$t('HongKongAutonomyAction')" />
       <v-spacer />
       <v-btn
         icon
-        @click.stop="rightDrawer = !rightDrawer"
+        @click.stop="changeLanguage"
       >
-        <v-icon>mdi-menu</v-icon>
+        {{$t('CurrentLanguage')}}
       </v-btn>
     </v-app-bar>
     <v-content>
@@ -94,7 +82,7 @@ export default {
     return {
       clipped: false,
       drawer: false,
-      fixed: false,
+      fixed: true,
       items: [
         {
           icon: 'mdi-apps',
@@ -110,7 +98,13 @@ export default {
       miniVariant: false,
       right: true,
       rightDrawer: false,
-      title: 'Vuetify.js'
+      title: 'HongKongAutonomyAction'
+    }
+  },
+  methods: {
+    changeLanguage() {
+      const locale = this.$i18n.locale === 'zh-HK' ? 'en-US' : 'zh-HK';
+      this.$i18n.setLocale(locale);
     }
   }
 }

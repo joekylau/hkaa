@@ -41,7 +41,22 @@ export default {
   ** Nuxt.js modules
   */
   modules: [
+    'nuxt-i18n'
   ],
+  /*
+  ** i18n module configuration
+  */
+  i18n: {
+    locales: ['zh-HK', 'en-US'],
+    defaultLocale: 'zh-HK',
+    vueI18n: {
+      messages: {
+        "zh-HK": require('./lang/zh-HK.json'),
+        "en-US": require('./lang/en-US.json')
+      }
+    },
+    strategy: 'no_prefix'
+  },
   /*
   ** vuetify module configuration
   ** https://github.com/nuxt-community/vuetify-module
