@@ -36,8 +36,28 @@
       >
         <v-icon>mdi-{{ `chevron-${miniVariant ? 'right' : 'left'}` }}</v-icon>
       </v-btn>
-      <v-toolbar-title v-text="$t('HongKongAutonomyAction')" />
+      <v-toolbar-title>
+        <nuxt-link class="toolbarLink" to="/">{{$t('HongKongAutonomyAction')}}</nuxt-link>
+      </v-toolbar-title>
       <v-spacer />
+      <v-btn
+        icon
+        @click.stop="goToFacebook"
+      >
+        <v-icon>mdi-facebook</v-icon>
+      </v-btn>
+      <v-btn
+        icon
+        @click.stop="goToTwitter"
+      >
+        <v-icon>mdi-twitter</v-icon>
+      </v-btn>
+      <v-btn
+        icon
+        @click.stop="goToTelegram"
+      >
+        <v-icon>mdi-telegram</v-icon>
+      </v-btn>
       <v-btn
         icon
         @click.stop="changeLanguage"
@@ -66,21 +86,31 @@ export default {
       clipped: false,
       drawer: false,
       fixed: true,
-      items: [
+      miniVariant: false,
+      right: true,
+      title: 'HongKongAutonomyAction'
+    }
+  },
+  computed: {
+    items: function() {
+      return [
         {
-          icon: 'mdi-apps',
-          title: 'Welcome',
+          icon: 'mdi-home',
+          title: this.$t('Home'),
           to: '/'
         },
         {
           icon: 'mdi-chart-bubble',
-          title: 'Inspire',
-          to: '/inspire'
+          title: this.$t('AboutUs'),
+          to: '/about-us',
+          items: [
+            {
+              title: this.$t('Founder'),
+              to: '/founder'
+            }
+          ]
         }
-      ],
-      miniVariant: false,
-      right: true,
-      title: 'HongKongAutonomyAction'
+      ]
     }
   },
   head() {
@@ -92,7 +122,23 @@ export default {
     changeLanguage() {
       const locale = this.$i18n.locale === 'zh-HK' ? 'en-US' : 'zh-HK';
       this.$i18n.setLocale(locale);
+    },
+    goToFacebook() {
+      window.open('https://www.facebook.com/HKAA2019/', '_blank');
+    },
+    goToTwitter() {
+      window.open('https://twitter.com/HKAA2019', '_blank');
+    },
+    goToTelegram() {
+      window.open('https://t.me/HKAA2019', '_blank');
     }
   }
 }
 </script>
+
+<style scoped>
+.toolbarLink {
+  text-decoration: none;
+  color: inherit;
+}
+</style>
