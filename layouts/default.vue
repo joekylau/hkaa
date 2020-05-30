@@ -4,24 +4,55 @@
       v-model="drawer"
       :mini-variant="miniVariant"
       :clipped="clipped"
+      width="375"
       fixed
       app
     >
       <v-list>
-        <v-list-item
-          v-for="(item, i) in items"
-          :key="i"
-          :to="item.to"
-          router
-          exact
+        <template
+          v-for="item in items"
         >
-          <v-list-item-action>
-            <v-icon>{{ item.icon }}</v-icon>
-          </v-list-item-action>
-          <v-list-item-content>
-            <v-list-item-title v-text="item.title" />
-          </v-list-item-content>
-        </v-list-item>
+          <v-list-group
+            v-if="item.items"
+            :key="item.title"
+            :prepend-icon="item.icon"
+            no-action
+          >
+            <template v-slot:activator>
+              <v-list-item-content>
+                <v-list-item-title v-text="item.title"></v-list-item-title>
+              </v-list-item-content>
+            </template>
+
+            <v-list-item
+              v-for="subItem in item.items"
+              :key="subItem.title"
+              :to="subItem.to"
+              router
+              exact
+            >
+              <v-list-item-content>
+                <v-list-item-title v-text="subItem.title"></v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
+          </v-list-group>
+
+          <v-list-item
+            v-else
+            :key="item.title"
+            :to="item.to"
+            router
+            exact
+          >
+            <v-list-item-action>
+              <v-icon>{{ item.icon }}</v-icon>
+            </v-list-item-action>
+            <v-list-item-content>
+              <v-list-item-title v-text="item.title" />
+            </v-list-item-content>
+          </v-list-item>
+        </template>
+
       </v-list>
     </v-navigation-drawer>
     <v-app-bar
@@ -106,7 +137,94 @@ export default {
           items: [
             {
               title: this.$t('Founder'),
-              to: '/founder'
+              to: '/about-us/founder'
+            },
+            {
+              title: this.$t('History'),
+              to: '/about-us/history'
+            },
+            {
+              title: this.$t('Philosophy'),
+              to: '/about-us/philosophy'
+            },
+            {
+              title: this.$t('ContactUs'),
+              to: '/about-us/contact-us'
+            }
+          ]
+        },
+        {
+          icon: 'mdi-sign-caution',
+          title: this.$t('Demonstration'),
+          to: '/demonstration'
+        },
+        {
+          icon: 'mdi-run',
+          title: this.$t('Action'),
+          to: '/action',
+          items: [
+            {
+              title: this.$t('CreatePetitionTheWhiteHouse'),
+              to: '/action/create-petition-the-white-house'
+            },
+            {
+              title: this.$t('RescueAsylumSeekersOversea'),
+              to: '/action/rescue-asylum-seekers-oversea'
+            },
+            {
+              title: this.$t('HangBannerFromLionRock'),
+              to: '/action/hang-banner-from-lion-rock'
+            },
+            {
+              title: this.$t('MeetSenatorAtTheAirport'),
+              to: '/action/meet-senator-at-the-airport'
+            },
+            {
+              title: this.$t('SendChristmasCard'),
+              to: '/action/send-christmas-card'
+            },
+            {
+              title: this.$t('ShootVideoShow'),
+              to: '/action/shoot-video-show'
+            },
+            {
+              title: this.$t('ResearchForHongKongCulturalProspect'),
+              to: '/action/research-for-hong-kong-cultural-prospect'
+            }
+          ]
+        },
+        {
+          icon: 'mdi-share-variant',
+          title: this.$t('Propaganda'),
+          to: '/propaganda',
+          items: [
+            {
+              title: this.$t('AmericanFlag'),
+              to: '/propaganda/american-flag'
+            },
+            {
+              title: this.$t('AmericanNationalAnthem'),
+              to: '/propaganda/american-national-anthem'
+            },
+            {
+              title: this.$t('Banner'),
+              to: '/propaganda/banner'
+            },
+            {
+              title: this.$t('Placard'),
+              to: '/propaganda/placard'
+            },
+            {
+              title: this.$t('Foamboard'),
+              to: '/propaganda/foamboard'
+            },
+            {
+              title: this.$t('Couplet'),
+              to: '/propaganda/couplet'
+            },
+            {
+              title: this.$t('OpenLetter'),
+              to: '/propaganda/open-letter'
             }
           ]
         }
